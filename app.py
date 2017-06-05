@@ -1,5 +1,6 @@
 # import pyximport; pyximport.install()
-from flask import Flask, CORS, jsonify, make_response, abort, request, render_template
+from flask import Flask,  jsonify, make_response, abort, request, render_template
+from flask_cors import CORS, cross_origin
 
 #cython
 #from pack1.pack1_1.player_proccessor import get_player, generateDictionary, get_player_season
