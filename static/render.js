@@ -139,6 +139,21 @@ function createBaseShotPlayerAttr(playerData)
 	//Offensive Stats stored in 'shot' dictionary 
 	for (var shot_key in playerData['shot'])
 	{
+		if (shot_key == 'GAME_COUNT')
+		{
+			var shot = playerData['shot'][shot_key];
+		 	var shotBase = document.createElement('div');
+		 	shotBase.setAttribute("id",shot_key);
+		 	shotBase.setAttribute("class","container");
+		 	shotBase.textContent = shot_key+": "+playerData['shot'][shot_key]
+		 	document.getElementById("temp").append(shotBase);
+
+
+
+		}
+
+		//different logic than 3PT or FG
+		else{
 		var shot = playerData['shot'][shot_key];
 		 var shotBase = document.createElement('div');
 		 	shotBase.setAttribute("id",shot_key);
@@ -146,18 +161,11 @@ function createBaseShotPlayerAttr(playerData)
 		 	shotBase.textContent = shot_key
 		 	document.getElementById("temp").append(shotBase);
 
+		
+
+
 		//different logic than 3PT or FG
-		if (shot_key == 'GAME_COUNT')
-			{
-				console.log("in here with "+shot);
-			 	var shotType = document.createElement('div');
-			 	shotType.setAttribute("id",shot);
-			 	shotType.setAttribute("class","countc")
-			 	//shotType.setAttribute("class","");
-			 	shotType.textContent = shot
-			 	document.getElementById(shot_key).append(shotType);
-				
-			}
+
 
 		for (var type in shot)
 			{
@@ -169,6 +177,8 @@ function createBaseShotPlayerAttr(playerData)
 			 	document.getElementById(shot_key).append(shotType);
 				renderPlayerClass(type, shot, shot_key+type, "")
 			}
+
+		}
 	}
 
 
