@@ -30,15 +30,15 @@ playerIdDict = {}
 
 
 
-# processPlayerDictionary('data/players.csv',playerNameDict, playerCompDict, playerIdDict)
+processPlayerDictionary('data/players.csv',playerNameDict, playerCompDict, playerIdDict)
 
 #print playerCompDict
 
 playerCompShot = playerCompDict
 
-playerCompAssist = playerCompDict
+#playerCompAssist = playerCompDict
 
-# generatePlayerShots('data/complete_data.csv', playerCompShot)
+generatePlayerShots('data/complete_data.csv', playerCompShot)
 # #processPlayerScores('data/complete_data.csv')
 # #print playerCompDict
 
