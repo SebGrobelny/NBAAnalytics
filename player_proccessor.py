@@ -2,7 +2,7 @@
 #%matplotlib inline
 import csv 
 from stat_calculation import check_shot_type
-from stat_calculation import calculateShot, calculatePercentages, identifyPlayer
+from stat_calculation import calculateShot, calculatePercentages, identifyPlayer, incrementShotData, appendPlayer
 
 # import matplotlib.pyplot as plt
 
@@ -19,7 +19,7 @@ from stat_calculation import calculateShot, calculatePercentages, identifyPlayer
 #25-dribbles 26-distance_travelled	27-defender	28-ndd	29-made
 
 
-def processPlayerDictionary(filePath, playerNameDict, completeDict, playerIdDict, playerName):
+def processPlayerDictionary(filePath, playerNameDict, completeDict, playerIdDict):
 
 	#will store the names of the associated player attributes found in the players.csv
 	with open(filePath, 'rU') as open_file:
@@ -95,101 +95,16 @@ def processPlayerDictionary(filePath, playerNameDict, completeDict, playerIdDict
 					#create a dictionary by player id as well
 					playerIdDict[curPlayerId] = entry_id
 
-					#first last name is player's--dont need to search anymore
-					if playerName == first_last:
-						break
-
 
 
 				count=count+1
 			#print playerDict
 			#return value_list
 
-def generatePlayerAssist(filePath, playerCompleteDict):
-	#will store the names of the associated player attributes found in the players.csv
-	with open(filePath, 'rU') as open_file:
-			#read in the first row to obtain necessary features
-			open_reader = csv.reader(open_file)
-			value_list = []
-
-			#store the headers in which will be used as keys for the dictionary
-			attr_list = []
-
-			#only want the first row the rest will be processed as JSON 
-			count = 0
-			for row in open_reader:
-
-				#create the dictionary skeleton used 
-				if count == 0:
-					#store the initial row 
-					attr_list = row
-					
-				else:
-					#print row
-					#Build a dictionary for each player
-					#dictionary who's keys will be the player attributes will return list of these to calling method
-					entry_dict = {}
-
-					#associate the headers with the given row to make accessing variables from rows clear to understand
-					for attr, value  in zip(attr_list,row):
-						entry_dict[attr] = value
-
-					#pull the player id out 
-					#print entry_dict
-					playerID = entry_dict['passer']
-
-					if playerID in playerCompleteDict:
-
-							#estabilish empty dictionary if no entry associated with current season for current player
-							if entry_dict['season'] not in playerCompleteDict[playerID]:
-								playerCompleteDict[playerID][entry_dict['season']] = {}
-
-							#making hashing look cleaner so use intermediary variables
-							playerSeason = playerCompleteDict[playerID][entry_dict['season']]
-
-
-
-							#estabilish empty dictionary if no entry associated with current game for current player
-
-							if entry_dict['game'] not in playerSeason:
-							 	playerSeason[entry_dict['game']] = {}
-
-
-							playerGame = playerSeason[entry_dict['game']]
-
-							#estabilish empty dictionary if no entry associated with current game for current player
-							if entry_dict['quarter'] not in playerGame:
-								playerGame[entry_dict['quarter']] = {}
-
-							playerQuarter = playerGame[entry_dict['quarter']]
-
-							#now associate the id of the shot with the actual shot attributes
-							playerQuarter[entry_dict['id']]= {}
-
-							playerShot = playerQuarter[entry_dict['id']]
-
-							#who shot it?
-							playerShot['shooter'] = entry_dict['shooter']
-
-
-							#what time was the pass made?
-							playerShot['pass_clock'] = entry_dict['poss_shot_clock']
-
-							#how far was it passed
-							playerShot['pass_distance'] = entry_dict['pass_distance']
-
-							#what time was the shot made?
-							playerShot['shot_clock'] = entry_dict['shot_game_clock']
-
-
-							#what time was the shot made?
-							playerShot['shot_clock'] = entry_dict['shot_game_clock']
-
-
 
 
 #pass in playerCompleteDict which is initialized to have each player id as a key associated with an empty hash table
-def generatePlayerShots(filePath, playerCompleteDict, desiredPlayer):
+def generatePlayerShots(filePath, playerCompleteDict, playerNameDict, desiredPlayer, playerName, seasons, months, quarters):
 	#will store the names of the associated player attributes found in the players.csv
 	with open(filePath, 'rU') as open_file:
 			#read in the first row to obtain necessary features
@@ -222,87 +137,77 @@ def generatePlayerShots(filePath, playerCompleteDict, desiredPlayer):
 					#print entry_dict
 					playerID = entry_dict['shooter']
 
+					#only store in dictionary if the players match
 					if playerID == desiredPlayer:
 
 						#catch error bc given player id that is not in players
 						if playerID in playerCompleteDict:
 
-								#figure out what shot it was based on the distance to the basket and side the basket is on
-								#do this so that shot_x updates based on what arithmetic is performed  
-								shot_x = []
-								shot_x.append(float(entry_dict['shot_x']))
+							#if its the desired season 
+							if entry_dict['season'] in seasons:
 
-								shot_y = []
-								shot_y.append(float(entry_dict['shot_y']))
+								#if its the desired month
+								if entry_dict['game'][4:6] in months:
 
-								shot_type = check_shot_type(shot_x, shot_y, entry_dict['offense_basket'])
-
+									#if its the desired quarter
+									if entry_dict['quarter'] in quarters:
 
 
-								#estabilish empty dictionary if no entry associated with current season for current player
-								if entry_dict['season'] not in playerCompleteDict[playerID]:
-									playerCompleteDict[playerID][entry_dict['season']] = {}
+										made = entry_dict['made']
+										#figure out what shot it was based on the distance to the basket and side the basket is on
+										#do this so that shot_x updates based on what arithmetic is performed  
+										shot_x = []
+										shot_x.append(float(entry_dict['shot_x']))
 
-								#making hashing look cleaner so use intermediary variables
-								playerSeason = playerCompleteDict[playerID][entry_dict['season']]
+										shot_y = []
+										shot_y.append(float(entry_dict['shot_y']))
 
+										shot_type = check_shot_type(shot_x, shot_y, entry_dict['offense_basket'])
 
+										#obtain the shot data
+										playerShotData = playerNameDict[playerName]['shot']
 
-								#estabilish empty dictionary if no entry associated with current game for current player
-
-								if entry_dict['game'] not in playerSeason:
-								 	playerSeason[entry_dict['game']] = {}
-
-
-								playerGame = playerSeason[entry_dict['game']]
-
-								#estabilish empty dictionary if no entry associated with current game for current player
-								if entry_dict['quarter'] not in playerGame:
-									playerGame[entry_dict['quarter']] = {}
-
-								playerQuarter = playerGame[entry_dict['quarter']]
-
-								#now associate the id of the shot with the actual shot attributes
-								playerQuarter[entry_dict['id']]= {}
-
-								playerShot = playerQuarter[entry_dict['id']]
-
-								#FG 3PT FT etc
-								playerShot['shot_type'] =  shot_type
-
-
-								#made or missed?
-								playerShot['made'] = entry_dict['made']
-
-								#where were they?
-								playerShot['shot_x'] = shot_x[0]
-
-								playerShot['shot_y'] = shot_y[0]
+										#increment the shot 
+										incrementShotData(made, playerShotData[shot_type])
 
 
 
+										#defender data 
+										if shot_type == 'FG':
+											defender_key = 'FG defender'
+										if shot_type == '3PT':
+											defender_key = '3PT defender'
 
-								#how far did the shooter travel?
-								playerShot['distance_travel'] = entry_dict['distance_travelled']
+										defender_id = entry_dict['defender']
 
-								#who passed it?
-								playerShot['passer'] = entry_dict['passer']
+										if defender_id != "NA":
+										 	#append defensive player to the shot
+										 	if defender_id not in playerNameDict[playerName][defender_key]:
+										 		playerNameDict[playerName][defender_key][defender_id] = {}
 
+										 	defender = playerNameDict[playerName][defender_key][defender_id]
 
-								#what time was the pass made?
-								playerShot['pass_clock'] = entry_dict['poss_shot_clock']
+										 	# if shot_type == 'FG':
+										 	appendPlayer(defender, made, 'Defended Shot', 'Allowed Shot')
+										#passer data 
+								
+										if shot_type == 'FG':
+											passer_key = 'FG passer'
+										if shot_type == '3PT':
+											passer_key = '3PT passer'
 
-								#how far was it passed
-								playerShot['pass_distance'] = entry_dict['pass_distance']
+										passer_id = entry_dict['passer']
+										if passer_id != "NA":
+											#append passer to the shot
 
-								#what time was the shot made?
-								playerShot['shot_clock'] = entry_dict['shot_game_clock']
+											if passer_id not in playerNameDict[playerName][passer_key]:
+										 		playerNameDict[playerName][passer_key][passer_id] = {}
 
-								#who was guarding?
-								playerShot['defender'] = entry_dict['defender']
+										 	passer = playerNameDict[playerName][passer_key][passer_id]
+											# if shot_type == 'FG':
+											appendPlayer(passer, made, 'Successful Assist', 'Failed Assist')
 
-								#how close were they?
-								playerShot['ndd'] = entry_dict['ndd']
+								playerNameDict[playerName]['shot']['GAME_COUNT'] = playerNameDict[playerName]['shot']['GAME_COUNT']+1
 	
 
 				count=count+1
@@ -322,6 +227,7 @@ def get_player_data( playerName, seasons, months, quarters):
 		playerIdDict = {}
 
 
+		#want all the players to be in our Name Dictionary
 		processPlayerDictionary('data/players.csv',playerNameDict, playerCompDict, playerIdDict)
 		
 		if playerName not in playerNameDict:
@@ -333,8 +239,7 @@ def get_player_data( playerName, seasons, months, quarters):
 
 			playerID = playerNameDict[playerName]['player_id']
 
-			#build data based on player passed in to reduce look up time 
-			generatePlayerShots('data/complete_data.csv', playerCompDict, playerID)
+
 
 
 			playerNameDict[playerName]['shot'] = {}
@@ -389,18 +294,14 @@ def get_player_data( playerName, seasons, months, quarters):
 			#maintain 3PT passers
 			playerNameDict[playerName]['3PT passer'] = {}
 
+
+			#build data based on player passed in to reduce look up time 
+			generatePlayerShots('data/complete_data.csv', playerCompDict, playerNameDict, playerID , playerName, seasons, months, quarters)
+
 			#will plot the shots made unto python matplot thing
 			# playerShotData['plot'] = {}
 			# playerShotData['plot']['x'] = []
 			# playerShotData['plot']['y'] = []
-
-			#iterate through all the seasons passed in by the user
-			for season in seasons:
-				#verify that player has data associated with the season 
-				#print playerCompDict[playerID]
-				if season in playerCompDict[playerID]:
-					#calculate Average FG 3PT for given player
-					calculateShot(playerCompDict[playerID][season], months, quarters, player3PTData, playerFGData, playerNameDict[playerName])
 
 			#plot the data
 			# sns.set_style("white")

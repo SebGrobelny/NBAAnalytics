@@ -212,7 +212,7 @@ function processPlayer()
 		}
 	//primary url for deploying requests for apps.py 
 	//url will include an appended request type at the end i.e. base stats 
-	var url = 'https://sebnba-pro.herokuapp.com/';
+	var url = 'https://sebnba-pro.herokuapp.com/homepage';
 
 	var season = document.getElementById('dropdownSeason');
 	console.log(season)
