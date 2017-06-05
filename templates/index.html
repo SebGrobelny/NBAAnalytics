@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Index Page</title>
+  </head>
+
+
+<!-- display is passed into the html from app.py and subsequent js will base its directives on this-->
+<!-- variables passed in from flask that will be taken to the JavaScript -->
+ <script>
+ var param = {{display|tojson}}; 
+
+ </script>
+
+  <body onload = "(param)" >
+  	<div id = "mainBody">
+
+  	</div>
+  </body>
+
+
+
+<!-- tell browser to do a hard refresh to register changes in the JS -->
+  <script src="static/render.js"></script>
+</html>

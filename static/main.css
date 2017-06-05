@@ -1,0 +1,37 @@
+body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-weight: 500;
+}
+
+/*form
+{
+	display: flex;
+	flex-direction: row;
+}*/
+#temp
+{
+	display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    flex-grow: 1;
+}
+.container
+{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+    flex-wrap: wrap;
+    margin: 25px;
+
+}
+.shot_attr
+{
+	flex: 1;
+}
+
+#key
+{
+	text-align: right;
+
+}
