@@ -4,9 +4,9 @@ import csv
 from stat_calculation import check_shot_type
 from stat_calculation import calculateShot, calculatePercentages, identifyPlayer
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
-import seaborn as sns
+# import seaborn as sns
 #player
 #0-player_id 1-firstname 2-lastname 3-position 4-height 5-weight 6-byear 7-rookie
 

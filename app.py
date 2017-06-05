@@ -1,4 +1,4 @@
-import pyximport; pyximport.install()
+# import pyximport; pyximport.install()
 from flask import Flask, jsonify, make_response, abort, request, render_template
 
 #cython
