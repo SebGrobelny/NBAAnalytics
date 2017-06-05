@@ -30,7 +30,7 @@ playerIdDict = {}
 
 
 
-processPlayerDictionary('data/players.csv',playerNameDict, playerCompDict, playerIdDict)
+# processPlayerDictionary('data/players.csv',playerNameDict, playerCompDict, playerIdDict)
 
 #print playerCompDict
 
@@ -38,11 +38,11 @@ playerCompShot = playerCompDict
 
 playerCompAssist = playerCompDict
 
-generatePlayerShots('data/complete_data.csv', playerCompShot)
-#processPlayerScores('data/complete_data.csv')
-#print playerCompDict
+# generatePlayerShots('data/complete_data.csv', playerCompShot)
+# #processPlayerScores('data/complete_data.csv')
+# #print playerCompDict
 
-generatePlayerAssist('data/complete_data.csv', playerCompAssist)
+# generatePlayerAssist('data/complete_data.csv', playerCompAssist)
 
 ##todo create team dict that will have playerCompDict
 
