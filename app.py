@@ -18,7 +18,7 @@ def main():
 
 	return render_template('main.html')
 
-#GET requests
+#GET player requests
 @app.route('/index/player=<player>/', methods=['GET'])
 def parsePlayer(player):
     #pass in all seasons since there is no filter
@@ -107,6 +107,7 @@ def parsePlayerSeasonQuarter(player,season,quarter):
 
 
     return jsonify(single_player_season)
+
 @app.route('/index/player=<player>/season=<season>/month=<month>/quarter=<quarter>', methods=['GET'])
 def parsePlayerFull(player,season,month,quarter):
     print("Full")
@@ -130,6 +131,23 @@ def parsePlayerFull(player,season,month,quarter):
 
 
     return jsonify(single_player_season)
+
+
+#GET team requests
+# @app.route('/index/team=<team>/', methods=['GET'])
+# def parseTeam(team):
+
+#     single_team = get_team_data(team)
+
+#     single_team["Team Nam: "] = team
+
+#     return jsonify(single_team)
+
+
+
+
+
+
 #app doesn't cache
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 #always goes at the bottom of the page

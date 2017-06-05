@@ -47,34 +47,34 @@ def check_shot_type(shot_x, shot_y, offense_basket):
 #increment either FG or 3PT
 def incrementShotData(made, shotData):
 	#initialize if not already present
-	if 'MADE' not in shotData:
-		shotData['MADE'] = 0
-	if 'ATTEMPT' not in shotData:
-		shotData['ATTEMPT'] = 0
+	if 'Total Made' not in shotData:
+		shotData['Total Made'] = 0
+	if 'Total Attempt' not in shotData:
+		shotData['Total Attempt'] = 0
 
 
 
 	if made == '1':
 						
-		shotData['MADE'] = shotData['MADE'] + 1
-		shotData['ATTEMPT'] = shotData['ATTEMPT'] + 1
+		shotData['Total Made'] = shotData['Total Made'] + 1
+		shotData['Total Attempt'] = shotData['Total Attempt'] + 1
 
 	if made == '0':
-		shotData['ATTEMPT'] = shotData['ATTEMPT'] + 1
+		shotData['Total Attempt'] = shotData['Total Attempt'] + 1
 
 
-def calculatePercentages(threePTData, fgData, returnData):
+def calculatePercentages( percKey,  shotData, returnData):
 
 	#ensure that values exist before trying to calculate 
-	if 'MADE' in fgData and 'ATTEMPT' in fgData:
-		fgData['FG%'] = "{:.3f}".format(float(fgData['MADE']) / float(fgData['ATTEMPT']))
-		fgData['AVG_ATTEMPT'] = "{:.1f}".format(float(fgData['ATTEMPT']) / float(returnData['GAME_COUNT']))
-		fgData['AVG_MADE'] = "{:.1f}".format(float(fgData['MADE']) / float(returnData['GAME_COUNT']))
+	if 'Total Made' in shotData and 'Total Attempt' in shotData:
+		shotData[percKey] = "{:.3f}".format(float(shotData['Total Made']) / float(shotData['Total Attempt']))
+		shotData['Attempts Per Game'] = "{:.3f}".format(float(shotData['Total Attempt']) / float(returnData['Games Played:']))
+		shotData['Made Per Game'] = "{:.3f}".format(float(shotData['Total Made']) / float(returnData['Games Played:']))
 
-	if 'MADE' in threePTData and 'ATTEMPT' in threePTData:
-		threePTData['3PT%'] = "{:.3f}".format(float(threePTData['MADE']) / float(threePTData['ATTEMPT']))	
-		threePTData['AVG_ATTEMPT'] = "{:.1f}".format(float(threePTData['ATTEMPT']) / float(returnData['GAME_COUNT']))
-		threePTData['AVG_MADE'] = "{:.1f}".format(float(threePTData['MADE']) / float(returnData['GAME_COUNT']))
+	# if 'Total Made' in threePTData and 'Total Attempt' in threePTData:
+	# 	threePTData['3PT%'] = "{:.3f}".format(float(threePTData['Total Made']) / float(threePTData['Total Attempt']))	
+	# 	threePTData['Attempts Per Game'] = "{:.3f}".format(float(threePTData['Total Attempt']) / float(returnData['Games Played:']))
+	# 	threePTData['Made Per Game'] = "{:.3f}".format(float(threePTData['Total Made']) / float(returnData['Games Played:']))
 
 
 #used to identify either the defender or passer associated with a shot
@@ -112,94 +112,94 @@ def appendPlayer(player, made, successKey, failKey):
 
 
 
+# OLD LOGIC--MOST OF THE TIME I HAD PREPROCESSED EVERY PLAYER THIS HOWEVER PROVED INEFFICEINT!!
+# def calculateShot(shotDict, months, quarters, threePTData, fgData, returnData):
+# 	#len(shotDict['game']) gives us the number of games
+# 	#we want to find the number made each game and divide it by the total number of games
+# 	# print "in CalculateAverage"
 
-def calculateShot(shotDict, months, quarters, threePTData, fgData, returnData):
-	#len(shotDict['game']) gives us the number of games
-	#we want to find the number made each game and divide it by the total number of games
-	# print "in CalculateAverage"
+# 	#iterate through all of the games player had in given season
+# 	for month in months:
+# 		# print month 
+# 		for game in shotDict:
+# 			#iterate through quarter player had in given game
+# 			#verify that the player had a game in the month requested
+# 			if int(game[4:6]) == int(month):
+# 				# if game == '2015012709':
+# 					#print "in game"
+# 					for quarter in quarters:
+# 						#verify that player actually has data for the given quarter
+# 						if quarter in shotDict[game]:
+# 							for shot in shotDict[game][quarter]:
+# 								# print shotDict[game][quarter]
 
-	#iterate through all of the games player had in given season
-	for month in months:
-		# print month 
-		for game in shotDict:
-			#iterate through quarter player had in given game
-			#verify that the player had a game in the month requested
-			if int(game[4:6]) == int(month):
-				# if game == '2015012709':
-					print "in game"
-					for quarter in quarters:
-						#verify that player actually has data for the given quarter
-						if quarter in shotDict[game]:
-							for shot in shotDict[game][quarter]:
-								# print shotDict[game][quarter]
+# 								#made-1 or missed-0 shot 
+# 								made = shotDict[game][quarter][shot]['Total Made']
 
-								#made-1 or missed-0 shot 
-								made = shotDict[game][quarter][shot]['made']
-
-								#FG or 3PT?
-								shot_type = shotDict[game][quarter][shot]['shot_type']
+# 								#FG or 3PT?
+# 								shot_type = shotDict[game][quarter][shot]['shot_type']
 
 
-								#call helper with fgData
-								if shot_type == 'FG':
-									incrementShotData(made, fgData)
+# 								#call helper with fgData
+# 								if shot_type == 'FG':
+# 									incrementShotData(made, fgData)
 
 								
-								#call helper with 3ptData
-								if shot_type == '3PT':
-									incrementShotData(made, threePTData)
+# 								#call helper with 3ptData
+# 								if shot_type == '3PT':
+# 									incrementShotData(made, threePTData)
 
 
 
-								#defender data 
-								if shot_type == 'FG':
-									defender_key = 'FG defender'
-								if shot_type == '3PT':
-									defender_key = '3PT defender'
+# 								#defender data 
+# 								if shot_type == 'FG':
+# 									defender_key = 'FG defender'
+# 								if shot_type == '3PT':
+# 									defender_key = '3PT defender'
 									
-								defender_id = shotDict[game][quarter][shot]['defender']
+# 								defender_id = shotDict[game][quarter][shot]['defender']
 
-								#TODO factor in defender distance to the player
-								if defender_id != "NA":
-								 	#append defensive player to the shot
-								 	if defender_id not in returnData[defender_key]:
-								 		returnData[defender_key][defender_id] = {}
+# 								#TODO factor in defender distance to the player
+# 								if defender_id != "NA":
+# 								 	#append defensive player to the shot
+# 								 	if defender_id not in returnData[defender_key]:
+# 								 		returnData[defender_key][defender_id] = {}
 
-								 	defender = returnData[defender_key][defender_id]
+# 								 	defender = returnData[defender_key][defender_id]
 
-								 	# if shot_type == 'FG':
-								 	appendPlayer(defender, made, 'Defended Shot', 'Allowed Shot')
+# 								 	# if shot_type == 'FG':
+# 								 	appendPlayer(defender, made, 'Defended Shot', 'Allowed Shot')
 
-								 	# if shot_type == '3PT':
-								 	# 	appendPlayer(defender, made, 'Defended 3PT', 'Allowed 3PT')
+# 								 	# if shot_type == '3PT':
+# 								 	# 	appendPlayer(defender, made, 'Defended 3PT', 'Allowed 3PT')
 
-								#passer data 
-								if shot_type == 'FG':
-									passer_key = 'FG passer'
-								if shot_type == '3PT':
-									passer_key = '3PT passer'
+# 								#passer data 
+# 								if shot_type == 'FG':
+# 									passer_key = 'FG passer'
+# 								if shot_type == '3PT':
+# 									passer_key = '3PT passer'
 
-								passer_id = shotDict[game][quarter][shot]['passer']
+# 								passer_id = shotDict[game][quarter][shot]['passer']
 
-								if passer_id != "NA":
-									#append passer to the shot
+# 								if passer_id != "NA":
+# 									#append passer to the shot
 
-									if passer_id not in returnData[passer_key]:
-								 		returnData[passer_key][passer_id] = {}
+# 									if passer_id not in returnData[passer_key]:
+# 								 		returnData[passer_key][passer_id] = {}
 
-								 	passer = returnData[passer_key][passer_id]
-									# if shot_type == 'FG':
-									appendPlayer(passer, made, 'Successful Assist', 'Failed Assist')
+# 								 	passer = returnData[passer_key][passer_id]
+# 									# if shot_type == 'FG':
+# 									appendPlayer(passer, made, 'Successful Assist', 'Failed Assist')
 
-								#plot made shot data
-								# if made == '1':
-								# 	#flip flop the coordinates because that is the convention for the plotter
-								# 	returnData['shot']['plot']['x'].append(shotDict[game][quarter][shot]['shot_y'])
-								# 	returnData['shot']['plot']['y'].append(shotDict[game][quarter][shot]['shot_x'])
+# 								#plot made shot data
+# 								# if made == '1':
+# 								# 	#flip flop the coordinates because that is the convention for the plotter
+# 								# 	returnData['shot']['plot']['x'].append(shotDict[game][quarter][shot]['shot_y'])
+# 								# 	returnData['shot']['plot']['y'].append(shotDict[game][quarter][shot]['shot_x'])
 
 
-			returnData['shot']['GAME_COUNT'] = returnData['shot']['GAME_COUNT']+1
-			# print returnData['shot']['GAME_COUNT']
+# 			returnData['shot']['GAME_COUNT'] = returnData['shot']['GAME_COUNT']+1
+# 			# print returnData['shot']['GAME_COUNT']
 
 
 

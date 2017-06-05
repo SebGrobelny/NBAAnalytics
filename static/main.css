@@ -3,6 +3,17 @@ body {
     font-weight: 500;
 }
 
+h1
+{
+	text-align:center;
+}
+
+h3
+{
+	text-align:center;
+}
+
+
 /*form
 {
 	display: flex;
@@ -23,6 +34,7 @@ body {
     flex: 1;
     flex-wrap: wrap;
     margin: 25px;
+    border: 1px solid black;
 
 }
 .shot_attr

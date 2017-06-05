@@ -87,6 +87,17 @@ function createBaseShotPlayerAttr(playerData)
 	temp.setAttribute("class","container");
 	document.getElementById("player").append(temp)
 
+	if ("" in playerData)
+	{
+		var error = document.createElement('div');
+		error.textContent = playerData[""];
+		document.getElementById("temp").append(error);
+		return 0;
+
+	}
+
+
+
 	player = playerData["Player Name"].split(" ")
 
 	// //generate Player picture from API 
@@ -139,13 +150,13 @@ function createBaseShotPlayerAttr(playerData)
 	//Offensive Stats stored in 'shot' dictionary 
 	for (var shot_key in playerData['shot'])
 	{
-		if (shot_key == 'GAME_COUNT')
+		if (shot_key == 'Games Played:')
 		{
 			var shot = playerData['shot'][shot_key];
 		 	var shotBase = document.createElement('div');
 		 	shotBase.setAttribute("id",shot_key);
 		 	shotBase.setAttribute("class","container");
-		 	shotBase.textContent = shot_key+": "+playerData['shot'][shot_key]
+		 	shotBase.textContent = shot_key+" "+playerData['shot'][shot_key]
 		 	document.getElementById("temp").append(shotBase);
 
 
@@ -212,7 +223,7 @@ function processPlayer()
 		}
 	//primary url for deploying requests for apps.py 
 	//url will include an appended request type at the end i.e. base stats 
-	var url = 'https://sebnba-pro.herokuapp.com/';
+	var url = 'http://127.0.0.1:5000/';
 
 	var season = document.getElementById('dropdownSeason');
 	console.log(season)
@@ -235,10 +246,21 @@ function processPlayer()
 
 	//pull the form associated with the player name out of the main.html
 	var playerName = document.getElementById("playerData").value;
-	// var season = document.getElementById("season").value;
+	
+	// //pull the form associated with the team name out of the 
+	// var teamName = document.getElementById("teamData").value;
 
-	//set the base player url
-	url = url+'index/player='+playerName;
+	if(playerName != "")
+	{
+		//set the base player url
+		url = url+'index/player='+playerName;
+	}
+
+	// if(teamName != "")
+	// {
+	// 	url = url+'index/team='+teamName;
+	// }
+
 
 	//if the list of season filters is not empty
 	if (seasonSelected.length > 0)
