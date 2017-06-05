@@ -1,5 +1,5 @@
 # import pyximport; pyximport.install()
-from flask import Flask, jsonify, make_response, abort, request, render_template
+from flask import Flask, CORS, jsonify, make_response, abort, request, render_template
 
 #cython
 #from pack1.pack1_1.player_proccessor import get_player, generateDictionary, get_player_season
@@ -9,7 +9,7 @@ from player_proccessor import get_player, generatePlayerShots, generatePlayerAss
 
 
 app = Flask(__name__)
-
+CORS(app)
 
 #process the data once so that app does not have to constantly reprocess
 game_values = []
