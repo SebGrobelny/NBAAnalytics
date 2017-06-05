@@ -1,12 +1,11 @@
-import pyximport; install.pyximport(reload_support=True)
+# import pyximport; install.pyximport(reload_support=True)
 from flask import Flask,  jsonify, make_response, abort, request, render_template
 from flask_cors import CORS, cross_origin
 
 #cython
-from pack1.pack1_1.player_proccessor import generatePlayerShots, generatePlayerAssist, get_player_data, processPlayerDictionary
+# from pack1.pack1_1.player_proccessor import generatePlayerShots, generatePlayerAssist, get_player_data, processPlayerDictionary
 
-
-#from player_proccessor import generatePlayerShots, generatePlayerAssist, get_player_data, processPlayerDictionary
+from player_proccessor import generatePlayerShots, generatePlayerAssist, get_player_data, processPlayerDictionary
 
 
 app = Flask(__name__)
