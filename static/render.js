@@ -152,7 +152,7 @@ function createBaseShotPlayerAttr(playerData)
 				console.log("in here with "+shot);
 			 	var shotType = document.createElement('div');
 			 	shotType.setAttribute("id",shot);
-			 	shotType.setAttribute("class","count")
+			 	shotType.setAttribute("class","countc")
 			 	//shotType.setAttribute("class","");
 			 	shotType.textContent = shot
 			 	document.getElementById(shot_key).append(shotType);
@@ -202,7 +202,7 @@ function processPlayer()
 		}
 	//primary url for deploying requests for apps.py 
 	//url will include an appended request type at the end i.e. base stats 
-	var url = 'http://127.0.0.1:5000/';
+	var url = 'https://sebnba-pro.herokuapp.com/';
 
 	var season = document.getElementById('dropdownSeason');
 	console.log(season)
