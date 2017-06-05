@@ -60,7 +60,7 @@ def parsePlayerMonth(player,month):
 
     return jsonify(single_player_season)
 
-@app.route('/index/player=<player>', methods=['GET'])
+@app.route('/index/player=<player>/', methods=['GET'])
 def parsePlayer(player):
     #pass in all seasons since there is no filter
     seasons = ['2014','2015','2016']
