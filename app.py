@@ -38,7 +38,7 @@ playerCompShot = playerCompDict
 
 #playerCompAssist = playerCompDict
 
-generatePlayerShots('data/complete_data.csv', playerCompShot)
+#generatePlayerShots('data/complete_data.csv', playerCompShot)
 # #processPlayerScores('data/complete_data.csv')
 # #print playerCompDict
 
@@ -46,7 +46,7 @@ generatePlayerShots('data/complete_data.csv', playerCompShot)
 
 ##todo create team dict that will have playerCompDict
 
-print len(playerCompDict['338365']['2015'])
+#print len(playerCompDict['338365']['2015'])
 
 
 
