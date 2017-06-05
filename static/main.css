@@ -30,6 +30,11 @@ body {
 	flex: 1;
 }
 
+.count
+{
+	text-align: left;
+}
+
 #key
 {
 	text-align: right;

@@ -146,6 +146,19 @@ function createBaseShotPlayerAttr(playerData)
 		 	shotBase.textContent = shot_key
 		 	document.getElementById("temp").append(shotBase);
 
+		//different logic than 3PT or FG
+		if (shot_key == 'GAME_COUNT')
+			{
+				console.log("in here with "+shot);
+			 	var shotType = document.createElement('div');
+			 	shotType.setAttribute("id",shot);
+			 	shotType.setAttribute("class","count")
+			 	//shotType.setAttribute("class","");
+			 	shotType.textContent = shot
+			 	document.getElementById(shot_key).append(shotType);
+				
+			}
+
 		for (var type in shot)
 			{
 				console.log(type)

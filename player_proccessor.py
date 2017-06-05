@@ -301,21 +301,24 @@ def generatePlayerShots(filePath, playerCompleteDict):
 				count=count+1
 
 
-#method for returning a massive JSON of all players with base attributes (height, weight, )
-def get_player( playerName, playerNameDict):
 
-	if playerName not in playerNameDict:
-			#player is not here
-			return 404
-	else:
-
-		#retreieve the base information associated with the playername
-		return playerBaseDict[playerName]
+def get_player_data( playerName, seasons, months, quarters):
+	##Globals for processing that get_commands will use 
+		playerNameDict = { }
 
 
+		#dictionary holding shot data about each player from complete_data.csv, where the key is the ID
+		playerCompDict = { }
 
 
-def get_player_data( playerName, seasons, months, quarters, playerNameDict, playerCompDict, playerIdDict):
+		#dictionary holding basic player data but the key is the player ID--used for identifying defenders/passers
+		playerIdDict = {}
+
+
+		processPlayerDictionary('data/players.csv',playerNameDict, playerCompDict, playerIdDict)
+		generatePlayerShots('data/complete_data.csv', playerCompDict)
+
+		#print playerCompDict
 
 		if playerName not in playerNameDict:
 			#player is not here
@@ -378,23 +381,24 @@ def get_player_data( playerName, seasons, months, quarters, playerNameDict, play
 			playerNameDict[playerName]['3PT passer'] = {}
 
 			#will plot the shots made unto python matplot thing
-			playerShotData['plot'] = {}
-			playerShotData['plot']['x'] = []
-			playerShotData['plot']['y'] = []
+			# playerShotData['plot'] = {}
+			# playerShotData['plot']['x'] = []
+			# playerShotData['plot']['y'] = []
 
 			#iterate through all the seasons passed in by the user
 			for season in seasons:
 				#verify that player has data associated with the season 
+				#print playerCompDict[playerID]
 				if season in playerCompDict[playerID]:
 					#calculate Average FG 3PT for given player
 					calculateShot(playerCompDict[playerID][season], months, quarters, player3PTData, playerFGData, playerNameDict[playerName])
 
 			#plot the data
-			sns.set_style("white")
-			sns.set_color_codes()
-			plt.figure(figsize=(12,11))
-			plt.scatter(playerShotData['plot']['y'], playerShotData['plot']['x'])
-			plt
+			# sns.set_style("white")
+			# sns.set_color_codes()
+			# plt.figure(figsize=(12,11))
+			# plt.scatter(playerShotData['plot']['y'], playerShotData['plot']['x'])
+			# plt
 
 			#identify the defender 
 			identifyPlayer(playerNameDict[playerName]['FG defender'], playerIdDict, "Defensive Player Name: ")
@@ -406,7 +410,7 @@ def get_player_data( playerName, seasons, months, quarters, playerNameDict, play
 
 
 			#identify defenders and passers based on their ID's
-			print playerShotData['GAME_COUNT']
+			#print playerShotData['GAME_COUNT']
 			calculatePercentages(player3PTData, playerFGData, playerShotData)
 
 			#return the base player info with the associated stats

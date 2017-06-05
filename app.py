@@ -6,64 +6,11 @@ from flask_cors import CORS, cross_origin
 #from pack1.pack1_1.player_proccessor import get_player, generateDictionary, get_player_season
 
 
-from player_proccessor import get_player, generatePlayerShots, generatePlayerAssist, get_player_data, processPlayerDictionary
+from player_proccessor import generatePlayerShots, generatePlayerAssist, get_player_data, processPlayerDictionary
 
 
 app = Flask(__name__)
 CORS(app)
-
-#process the data once so that app does not have to constantly reprocess
-game_values = []
-
-#scoreDict ={ }
-
-#dictionary holding basic player data, where the key is the first and last name
-playerNameDict = { }
-
-
-#dictionary holding shot data about each player from complete_data.csv, where the key is the ID
-playerCompDict = { }
-
-
-#dictionary holding basic player data but the key is the player ID--used for identifying defenders/passers
-playerIdDict = {}
-
-
-
-
-processPlayerDictionary('data/players.csv',playerNameDict, playerCompDict, playerIdDict)
-
-#print playerCompDict
-
-playerCompShot = playerCompDict
-
-#playerCompAssist = playerCompDict
-
-#generatePlayerShots('data/complete_data.csv', playerCompShot)
-# #processPlayerScores('data/complete_data.csv')
-# #print playerCompDict
-
-# generatePlayerAssist('data/complete_data.csv', playerCompAssist)
-
-##todo create team dict that will have playerCompDict
-
-#print len(playerCompDict['338365']['2015'])
-
-
-
-
-# team_list = generatePla('data/teams.csv')
-
-##TODO generate hash for each player for each game
-
-# #primary filters
-# season_values = ['2014','2015','2016']
-# print season_values
-
-# print game_values
-# quarter_values = ['1', '2', '3', '4']
-# print quarter_values
-
 
 
 #display the homepage
@@ -84,7 +31,7 @@ def parsePlayer(player):
     #pass in all quartes since there is no filter
     quarters = ['1','2','3','4']
 
-    single_player_season = get_player_data(player, seasons, months, quarters, playerNameDict, playerCompDict, playerIdDict)
+    single_player_season = get_player_data(player, seasons, months, quarters)
 
     if single_player_season == 404:
         return jsonify({'':"Error Try a Different Player Name"}),404
@@ -107,7 +54,7 @@ def parsePlayerSeason(player,season):
     #pass in all quartes since there is no filter
     quarters = ['1','2','3','4']
 
-    single_player_season = get_player_data(player, seasons, months, quarters, playerNameDict, playerCompDict, playerIdDict)
+    single_player_season = get_player_data(player, seasons, months, quarters)
 
     if single_player_season == 404:
         return jsonify({'':"Error Try a Different Player Name"}),404
@@ -130,7 +77,7 @@ def parsePlayerSeasonMonth(player,season,month):
     quarters = ['1','2','3','4']
 
 
-    single_player_season = get_player_data(player, seasons, months, quarters, playerNameDict, playerCompDict, playerIdDict)
+    single_player_season = get_player_data(player, seasons, months, quarters)
 
     if single_player_season == 404:
         return jsonify({'':"Error Try a Different Player Name"}),404
@@ -153,7 +100,7 @@ def parsePlayerSeasonQuarter(player,season,quarter):
     quarters = quarter.split()
 
 
-    single_player_season = get_player_data(player, seasons, months, quarters, playerNameDict, playerCompDict, playerIdDict)
+    single_player_season = get_player_data(player, seasons, months, quarters)
 
     if single_player_season == 404:
         return jsonify({'':"Error Try a Different Player Name"}),404
@@ -176,7 +123,7 @@ def parsePlayerFull(player,season,month,quarter):
     quarters = quarter.split( )
 
 
-    single_player_season = get_player_data(player, seasons, months, quarters, playerNameDict, playerCompDict, playerIdDict)
+    single_player_season = get_player_data(player, seasons, months, quarters)
 
     if single_player_season == 404:
         return jsonify({'':"Error Try a Different Player Name"}),404
