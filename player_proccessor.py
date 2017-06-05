@@ -261,7 +261,7 @@ def generatePlayerShots(filePath, playerCompleteDict, playerNameDict, desiredPla
 										#less than ten seconds on the shot clock--definitely clutch
 										if entry_dict['shot_shot_clock'] != 'NA':
 											if float(entry_dict['shot_shot_clock']) <= 10:
-													print "in clutch"
+													#print "in clutch"
 													if shot_type == 'FG':
 														clutch_type = 'FG CLUTCH'
 													if shot_type == '3PT':
