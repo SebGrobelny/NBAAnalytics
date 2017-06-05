@@ -10,12 +10,14 @@ Design:
 	Visual Schema:
 	player_id-->season-->game-->quarter-->shot
 
+	If given more time, I would integrate teams in a similiar fashion and use the same approach for filters.
+
 	Planned Integration of Teams:
-	team_id->player_id
+	team_id->player_id->...
 
 Alternative Approaches:
 	
-	I had considered building out a database in sqlite3 and then simply dumping the data into a database and running queries that way. This does not fix the query time as you are still traversing through every possible shot in every possible game. If a database implementation is desired  then I believe mulitple are necessary so as to associate different keys with different values to minimize look up time. Overall I believe that my implementation requires less space than maintaining a full database and takes advantage of the fact that the framework I chose, FLASK, does not need an underlying database.
+	I had considered building out a database in sqlite3 and then simply dumping the data into a database and running queries that way. This does not fix the query time as you are still traversing through every possible shot in every possible game. If a database implementation is desired  then I believe mulitple are necessary so as to associate different keys with different values to minimize look up time. Overall I believe the in place, nested dictionary approach I undertook requires less space and time than maintaining a full database and takes advantage of the fact that the framework I chose, FLASK, does not need an underlying database.
 
 Alternative Deployment:
 	With my local version I was able to run every query on every filter without timing out. Given that Heroku times out when requests take 30 seconds to process which queries relating to a player's entire season , which led me to pursue the use of cython so as to attempt to improve the data processing by utilizing C, this can still be seen if looking inside my pack1 directory on git as I have a setup.py file used to compile the cython file.  This unfortunately did not work on Heroku, although it did work locally and actually sped up a lot of the vaster queries, as Heroku was not able to recognize the pyx modules that cython produces. So I would definitely invest in some other host that does not fall under that restriction. 
@@ -40,7 +42,7 @@ Software Development Experience:
 
 	I then began interning with Niche Holdings based out of San Francisco. There I implement XML and HTML parsers using BeautifulSoup that automate data collections across a variety of different sites looking for financial information about companies publicly trading on the stock market. I have also gained proficiency at OpenSSL technology for client server interaction. Please feel free to reach out to Justin Howe at justinxhowe@gmail.com for any questions about the nature of the project.
 
-	As of now I currently tutor UC Davis's operating systems class. The class itself is driven towards projects in C that build off of the development of a user level thread library as the projects expanded into thread storage and the implementation of a virtual file system. As a tutor I help guide students in a broader understanding of the concepts while also helping them debug and design the projects in C. I pride myself on being able to take the very technical terms and utilize visual aids along with simple examples so as to guide my students toward a greater understanding of the material. Please feel free to reach out to my supervisor Inez Anders at cianders@ucdavis.edu.
+	As of now I currently tutor UC Davis's operating systems class. The class itself is driven towards projects in C that build off of the development of a user level thread library as the projects expanded into thread storage and the implementation of a virtual file system. As a tutor I help guide students in a broader understanding of the concepts while also helping them debug and design the projects in C. As a non-native English speaker, I pride myself on being able to take the very technical terms and utilize visual aids along with simple examples so as to guide my students toward a greater understanding of the material. Please feel free to reach out to my supervisor Inez Anders at cianders@ucdavis.edu.
 
 	For me Software Development was something I first picked up my Sophomore year in college when taking my first object-oriented programming class in C and honed as a tutor for a class with deeper applications. But the programming skills I have acquired at UC Davis and in my internship experience come second to the lifelong communication skills and teambuilding skills that I have developed throughout my education at UC Davis and while participating in the Young Entrepreneurs at Haas program. I feel as if that is my strongest asset as a Software Engineer and something that I would very much like to showcase in future interviews, and if I'm lucky enough, as a Back End Developer for the Sacramento Kings.
 	
