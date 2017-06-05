@@ -38,6 +38,8 @@ def parsePlayer(player):
 
 
     return jsonify(single_player_season)
+
+    
 @app.route('/index/player=<player>/month=<month>', methods=['GET'])
 def parsePlayer(player):
     #pass in all seasons since there is no filter
