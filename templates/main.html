@@ -4,6 +4,9 @@
     <title>Home Page</title>
   </head>
   <link rel="stylesheet" type="text/css" href="static/main.css">
+  <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
+
   <h1> Welcome to the NBA Analytics Site </h1>
   <h3> Please Enter a Player's Full Name To View Their Shot Statistics </h3>
   <div id= "playerForm">
@@ -11,7 +14,7 @@
   		<input type = "text"  name = "playerName" id="playerData" placeholder="Enter a Player Name" />
 <!--       <input type = "text"  name = "teamName" id="teamData" placeholder="Enter a Team Name" /> -->
 
-      <select  id="dropdownSeason" multiple>
+      <select  id="dropdownSeason" class="selectpicker" multiple>
 
           <option value="">Select a Season</option>
           <option value="2014">2013-2014</option>
@@ -19,7 +22,7 @@
           <option value="2016">2015-2016</option>
       </select>
 
-      <select  id="dropdownMonth" multiple>
+      <select  id="dropdownMonth" class="selectpicker" multiple>
 
           <option value="">Select a Month</option>
           <option value="01">January</option>
@@ -36,7 +39,7 @@
           <option value="12">December</option>
       </select>
 
-      <select id="dropdownQuarter" multiple>
+      <select id="dropdownQuarter" class="selectpicker" multiple>
 
           <option value="">Select a Quarter</option>
           <option value="1">Q1</option>
