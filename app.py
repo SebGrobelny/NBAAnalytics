@@ -31,180 +31,27 @@ def playerList():
     return json.dumps(player_list)
 
 #GET player requests
-@app.route('/index/player=<player>/season=<season>', methods=['GET'])
-def parsePlayerSeason(player,season):
-    #pass in all seasons since there is no filter
-    seasons = season.split()
-
-    #pass in all months since there is no filter
-    months = fullmonths
-
-    #pass in all quartes since there is no filter
-    quarters = fullquarters
-
-    single_player_season = get_player_data(player, seasons, months, quarters)
-
-    if single_player_season == 404:
-        return jsonify({'':"Error Try a Different Player Name"}),404
-    single_player_season["Player Name"] = player
-
-
-    return jsonify(single_player_season)
-
-
-@app.route('/index/player=<player>/month=<month>', methods=['GET'])
-def parsePlayerMonth(player,month):
-    #pass in all seasons since there is no filter
-    seasons = fullseasons
-
-    #pass in all months since there is no filter
-    months = month.split()
-
-    #pass in all quartes since there is no filter
-    quarters = fullquarters
-
-    single_player_season = get_player_data(player, seasons, months, quarters)
-
-    if single_player_season == 404:
-        return jsonify({'':"Error Try a Different Player Name"}),404
-    single_player_season["Player Name"] = player
-
-
-    return jsonify(single_player_season)
-
-@app.route('/index/player=<player>', methods=['GET'])
-def parsePlayer(player):
-    # player = player.replace("-"," ")
-    #pass in all seasons since there is no filter
-    seasons = fullseasons
-
-    #pass in all months since there is no filter
-    months = fullmonths
-
-    #pass in all quartes since there is no filter
-    quarters = fullquarters
-
-    single_player_season = get_player_data(player, seasons, months, quarters)
-
-    if single_player_season == 404:
-        return jsonify({'':"Error Try a Different Player Name"}),404
-    single_player_season["Player Name"] = player
-
-
-    return jsonify(single_player_season)
-
-#no filters loop over everything 
-@app.route('/index/player=<player>/quarter=<quarter>', methods=['GET'])
-def parsePlayerQuarter(player,quarter):
-    print("Season")
-	
-    #produce a list from the strings passed in 
-    seasons = fullseasons
-
-    #pass in all months since there is no filter
-    months = fullmonths
-
-    #pass in all quartes since there is no filter
-    quarters = quarter.split()
-
-    single_player_season = get_player_data(player, seasons, months, quarters)
-
-    if single_player_season == 404:
-        return jsonify({'':"Error Try a Different Player Name"}),404
-    single_player_season["Player Name"] = player
-
-
-    return jsonify(single_player_season)
-
-@app.route('/index/player=<player>/season=<season>/month=<month>', methods=['GET'])
-def parsePlayerSeasonMonth(player,season,month):
-    print("SeasonMonth")
-    
-    #produce a list from the strings passed in 
-    seasons = season.split()
-
-    #produce a list from the strings passed in 
-    months = month.split()
-
-    #pass in all quartes since there is no filter
-    quarters = fullquarters
-
-
-    single_player_season = get_player_data(player, seasons, months, quarters)
-
-    if single_player_season == 404:
-        return jsonify({'':"Error Try a Different Player Name"}),404
-    single_player_season["Player Name"] = player
-
-
-    return jsonify(single_player_season)
-
-@app.route('/index/player=<player>/season=<season>/quarter=<quarter>', methods=['GET'])
-def parsePlayerSeasonQuarter(player,season,quarter):
-    print("SeasonQuarter")
-    
-    #produce a list from the strings passed in 
-    seasons = season.split()
-    if len(seasons) == 0:
-        seasons = fullseasons
-
-    #assume all months are fair game since none have been selected 
-    months = fullmonths
-
-    #pass in all quartes since there is no filter
-    quarters = quarter.split()
-
-
-    single_player_season = get_player_data(player, seasons, months, quarters)
-
-    if single_player_season == 404:
-        return jsonify({'':"Error Try a Different Player Name"}),404
-    single_player_season["Player Name"] = player
-
-
-    return jsonify(single_player_season)
-
-@app.route('/index/player=<player>/month=<month>/quarter=<quarter>', methods=['GET'])
-def parsePlayerMonthQuarter(player,month,quarter):
-    print("SeasonQuarter")
-    
-    #produce a list from the strings passed in 
-    seasons = fullseasons
-
-    #assume all months are fair game since none have been selected 
-    months = month.split()
-
-    #pass in all quartes since there is no filter
-    quarters = quarter.split()
-
-
-    single_player_season = get_player_data(player, seasons, months, quarters)
-
-    if single_player_season == 404:
-        return jsonify({'':"Error Try a Different Player Name"}),404
-    single_player_season["Player Name"] = player
-
-
-    return jsonify(single_player_season)
-
 @app.route('/index/player=<player>/season=<season>/month=<month>/quarter=<quarter>', methods=['GET'])
 def parsePlayerFull(player,season,month,quarter):
     print("Full")
     print(season)
     #produce a list from the strings passed in 
-    seasons = season.split()
-    if len(seasons) == 0:
+    if season == "NA":
         seasons = fullseasons
+    else:
+        seasons = season.split()
 
     #produce a list from the strings passed in 
-    months = month.split( )
-    if len(months) == 0:
+    if month == "NA":
         months = fullmonths
+    else:
+        months = month.split()
 
     #pass in all quartes since there is no filter
-    quarters = quarter.split( )
-    if len(quarters) == 0:
+    if quarter == "NA":
         quarters = fullquarters
+    else:
+        quarters = quarter.split()
 
 
 
@@ -239,4 +86,4 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 #always goes at the bottom of the page
 ##has to do with the WSGI
 if __name__ == '__main__':
-    app.run(ssl_context='adhoc')
+    app.run(debug=True)

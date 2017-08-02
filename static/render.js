@@ -294,7 +294,7 @@ function processPlayer()
 	console.log(seasonSelected);
 	if(seasonSelected == "Select a Season")
 	{
-		seasonSelected="";
+		seasonSelected="NA";
 	}
 
 	var month = document.getElementById('dropdownMonth');
@@ -304,7 +304,7 @@ function processPlayer()
 
 	if(monthSelected == "Select a Month")
 	{
-		monthSelected="";
+		monthSelected="NA";
 	}
 
 	var quarter = document.getElementById('dropdownQuarter');
@@ -313,7 +313,7 @@ function processPlayer()
 	console.log(quarterSelected);
 	if(quarterSelected == "Select a Quarter")
 	{
-		quarterSelected="";
+		quarterSelected="NA";
 	}
 
 
