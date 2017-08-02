@@ -23,7 +23,7 @@ def selectPlayersList():
 		table_name = "player"
 		column_name = "playername"
 
-		cur.execute("SELECT DISTINCT %s FROM player ORDER BY %s ASC" %(column_name))
+		cur.execute("SELECT DISTINCT playername FROM player ORDER BY playername ASC")
 		all_rows = cur.fetchall()
 		
 		print "in list"
