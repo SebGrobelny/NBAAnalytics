@@ -145,6 +145,8 @@ def parsePlayerSeasonQuarter(player,season,quarter):
     
     #produce a list from the strings passed in 
     seasons = season.split()
+    if len(seasons) == 0:
+        seasons = fullseasons
 
     #assume all months are fair game since none have been selected 
     months = fullmonths
@@ -191,13 +193,20 @@ def parsePlayerFull(player,season,month,quarter):
     print(season)
     #produce a list from the strings passed in 
     seasons = season.split()
-    print seasons
+    if len(seasons) == 0:
+        seasons = fullseasons
 
     #produce a list from the strings passed in 
     months = month.split( )
+    if len(months) == 0:
+        months = fullmonths
 
     #pass in all quartes since there is no filter
     quarters = quarter.split( )
+    if len(quarters) == 0:
+        quarters = fullquarters
+
+
 
 
     single_player_season = get_player_data(player, seasons, months, quarters)
