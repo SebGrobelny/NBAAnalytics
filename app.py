@@ -74,7 +74,7 @@ def parsePlayerMonth(player,month):
 
 @app.route('/index/player=<player>', methods=['GET'])
 def parsePlayer(player):
-    player = player.replace("-"," ")
+    # player = player.replace("-"," ")
     #pass in all seasons since there is no filter
     seasons = fullseasons
 

@@ -322,7 +322,7 @@ function processPlayer()
 	var player = document.getElementById("dropdownPlayer");
 	var playerName = getSelectValues(player);
 	
-	playerName.replace(" ","-");
+	//playerName.replace(" ","-");
 	// //pull the form associated with the team name out of the 
 	// var teamName = document.getElementById("teamData").value;
 
