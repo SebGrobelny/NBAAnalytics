@@ -229,4 +229,4 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 #always goes at the bottom of the page
 ##has to do with the WSGI
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(ssl_context='adhoc')
