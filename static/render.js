@@ -277,6 +277,11 @@ function generateSelect()
 
 function processPlayer()
 {
+	//primary url for deploying requests for apps.py 
+	//url will include an appended request type at the end i.e. base stats 
+	var url = 'https://sebnba-pro.herokuapp.com/';
+
+
 	//clear method for previously displayed player
 	//if our temp is still there from the last request
 	if(document.getElementById("temp"))
@@ -284,9 +289,7 @@ function processPlayer()
 			myNode = document.getElementById("temp")
 			myNode.remove(myNode.firstChild)
 		}
-	//primary url for deploying requests for apps.py 
-	//url will include an appended request type at the end i.e. base stats 
-	var url = 'https://sebnba-pro.herokuapp.com/';
+
 
 	var season = document.getElementById('dropdownSeason');
 
@@ -302,7 +305,7 @@ function processPlayer()
 	var monthSelected = getSelectValues(month);
 	console.log(monthSelected);
 
-	if(monthSelected == "Select a Season")
+	if(monthSelected == "Select a Month")
 	{
 		monthSelected="";
 	}
@@ -311,7 +314,7 @@ function processPlayer()
 
 	var quarterSelected = getSelectValues(quarter);
 	console.log(quarterSelected);
-	if(quarterSelected == "Select a Season")
+	if(quarterSelected == "Select a Quarter")
 	{
 		quarterSelected="";
 	}

@@ -66,7 +66,7 @@ def incrementShotData(made, shotData):
 def calculatePercentages( percKey,  shotData, returnData):
 
 	#ensure that values exist before trying to calculate 
-	if 'Total Made' in shotagiData and 'Total Attempt' in shotData:
+	if 'Total Made' in shotData and 'Total Attempt' in shotData:
 		shotData[percKey] = "{:.3f}".format(float(shotData['Total Made']) / float(shotData['Total Attempt']))
 		shotData['Attempts Per Game'] = "{:.3f}".format(float(shotData['Total Attempt']) / float(returnData['Games Played:']))
 		shotData['Made Per Game'] = "{:.3f}".format(float(shotData['Total Made']) / float(returnData['Games Played:']))
