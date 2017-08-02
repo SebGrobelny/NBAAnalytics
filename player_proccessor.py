@@ -23,7 +23,7 @@ def selectPlayersList():
 		table_name = "player"
 		column_name = "playername"
 
-		cur.execute("SELECT DISTINCT %s FROM player" %(column_name))
+		cur.execute("SELECT DISTINCT %s FROM player ORDER BY %s ASC" %(column_name))
 		all_rows = cur.fetchall()
 		
 		print "in list"
@@ -322,6 +322,9 @@ def get_player_data( playerName, seasons, months, quarters):
 		#dictionary holding basic player data but the key is the player ID--used for identifying defenders/passers
 		playerIdDict = {}
 
+
+
+		queryPlayerDB()
 
 		#want all the players to be in our Name Dictionary
 		processPlayerDictionary('players.csv',playerNameDict, playerCompDict, playerIdDict)
