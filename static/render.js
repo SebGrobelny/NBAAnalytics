@@ -8,8 +8,6 @@ function renderPlayerList(players)
 	console.log(players);
 	players = JSON.parse(players);
 
-	console.log(players);
-
 	arrayLength = players.length;
 
 	for(var i=0; i < arrayLength; i++)
@@ -26,7 +24,6 @@ function renderPlayerList(players)
 		else
 		{
 			var opt = document.createElement("option");
-			console.log(players[i]);
 			opt.value = players[i];
 			opt.textContent = players[i];
 
@@ -334,11 +331,6 @@ function processPlayer()
 		url = url+'index/player='+playerName;
 	}
 
-	// if(teamName != "")
-	// {
-	// 	url = url+'index/team='+teamName;
-	// }
-
 
 	//if the list of season filters is not empty
 	if (seasonSelected.length > 0)
@@ -390,8 +382,11 @@ function processPlayer()
 
 	//put a request into FLASK
 	var oReq = new XMLHttpRequest();
+	  console.log(url);
     oReq.addEventListener("load", reqListener);
+    console.log(url);
     oReq.open("GET", url);
+    console.log(url);
     oReq.send();
 }
 
