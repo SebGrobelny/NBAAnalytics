@@ -254,7 +254,7 @@ function createBaseShotPlayerAttr(playerData)
 //method for populating the players tab 
 function generateSelect()
 {
-	var url = 'http://sebnba-pro.herokuapp.com/index';
+	var url = 'https://sebnba-pro.herokuapp.com/index';
 
 	console.log(url);
 
@@ -279,7 +279,7 @@ function processPlayer()
 {
 	//primary url for deploying requests for apps.py 
 	//url will include an appended request type at the end i.e. base stats 
-	var url = 'http://sebnba-pro.herokuapp.com/';
+	var url = 'https://sebnba-pro.herokuapp.com/';
 
 
 	//clear method for previously displayed player
