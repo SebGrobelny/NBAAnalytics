@@ -334,20 +334,20 @@ function processPlayer()
 
 
 	//if the list of season filters is not empty
-	if (seasonSelected.length > 0)
-	{
+	// if (seasonSelected.length > 0)
+	// {
 		url = url+'/season='+seasonSelected.toString();
-	}
+	// }
 	//if the list of month filters is not empty
-	if (monthSelected.length > 0)
-	{
+	// if (monthSelected.length > 0)
+	// {
 		url = url+'/month='+monthSelected.toString();
-	}
+	// }
 	//if the list of quarter filters is not empty
-	if (quarterSelected.length > 0)
-	{
+	// if (quarterSelected.length > 0)
+	// {
 		url = url+'/quarter='+quarterSelected.toString();
-	}
+	// }
 
 
 
