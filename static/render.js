@@ -308,7 +308,8 @@ function processPlayer()
 
 
 	//pull the form associated with the player name out of the main.html
-	var playerName = document.getElementById("playerData").value;
+	var player = document.getElementById("dropdownPlayer");
+	var playerName = getSelectValues(player);
 	
 	// //pull the form associated with the team name out of the 
 	// var teamName = document.getElementById("teamData").value;
