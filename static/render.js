@@ -289,22 +289,33 @@ function processPlayer()
 	var url = 'https://sebnba-pro.herokuapp.com/';
 
 	var season = document.getElementById('dropdownSeason');
-	console.log(season)
 
 	var seasonSelected = getSelectValues(season);
 	console.log(seasonSelected);
-	//figure out start and end years
+	if(seasonSelected == "Select a Season")
+	{
+		seasonSelected="";
+	}
+
 	var month = document.getElementById('dropdownMonth');
-	console.log(month)
 
 	var monthSelected = getSelectValues(month);
 	console.log(monthSelected);
 
+	if(monthSelected == "Select a Season")
+	{
+		monthSelected="";
+	}
+
 	var quarter = document.getElementById('dropdownQuarter');
-	console.log(quarter)
 
 	var quarterSelected = getSelectValues(quarter);
 	console.log(quarterSelected);
+	if(quarterSelected == "Select a Season")
+	{
+		quarterSelected="";
+	}
+
 
 
 	//pull the form associated with the player name out of the main.html
