@@ -5,6 +5,7 @@ function renderPlayerList(players)
 {
 	var select = document.getElementById("dropdownPlayer");
 	console.log("in render");
+	console.log(players);
 	players = JSON.parse(players);
 
 	console.log(players);
