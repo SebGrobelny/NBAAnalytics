@@ -1,5 +1,42 @@
 
 
+//method for producing lists
+function renderPlayerList(players)
+{
+	var select = document.getElementById("dropdownPlayer");
+	console.log("in render");
+	players = JSON.parse(players);
+
+	console.log(players);
+
+	arrayLength = players.length;
+
+	for(var i=0; i < arrayLength; i++)
+	{
+		if( i == 0 )
+		{
+			var opt = document.createElement("option");
+			opt.value = "";
+			opt.textContent = "Select A Player";
+			select.appendChild(opt);
+
+
+		}
+		else
+		{
+			var opt = document.createElement("option");
+			console.log(players[i]);
+			opt.value = players[i];
+			opt.textContent = players[i];
+
+			select.appendChild(opt);
+
+		}
+
+	}
+
+
+}
 
 //generic method for producing all of the HTML classses associated with a player
 function renderPlayerClass(key, playerData, parentID, suffix)
@@ -210,6 +247,31 @@ function createBaseShotPlayerAttr(playerData)
 }
 
 
+//-----------------------------------------------------------------------------------
+//functions called from main.html
+//-----------------------------------------------------------------------------------
+//method for populating the players tab 
+function generateSelect()
+{
+	var url = 'https://sebnba-pro.herokuapp.com/';
+
+	console.log(url);
+
+	function reqListener () {
+		
+		renderPlayerList(this.responseText);
+
+    }
+
+
+
+	//put a request into FLASK
+	var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    oReq.open("GET", url);
+    oReq.send();
+
+}
 
 
 function processPlayer()
@@ -316,6 +378,7 @@ function processPlayer()
     oReq.open("GET", url);
     oReq.send();
 }
+
 
 function main(display)
 {

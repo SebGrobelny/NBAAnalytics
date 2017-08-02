@@ -2,21 +2,33 @@
 from flask import Flask,  jsonify, make_response, abort, request, render_template
 from flask_cors import CORS, cross_origin
 
-#cython
-# from pack1.pack1_1.player_proccessor import generatePlayerShots, generatePlayerAssist, get_player_data, processPlayerDictionary
+import json
 
-from player_proccessor import generatePlayerShots, get_player_data, processPlayerDictionary
+#module that contains queries to databases
+from player_proccessor import generatePlayerShots, get_player_data, processPlayerDictionary, selectPlayersList
+
 
 
 app = Flask(__name__)
 CORS(app)
 
+#Globals
+fullseasons= ['2014','2015','2016']
+fullmonths= ['01','02','03','04','05','06','07','08','09','10','11','12']
+fullquarters= ['1','2','3','4']
+
 
 #display the homepage
-@app.route('/homepage')
+@app.route('/')
 def main():
+    return render_template('main.html')
 
-	return render_template('main.html')
+@app.route('/index')
+def playerList():
+    print "in here"
+    player_list = selectPlayersList()
+    print "made it out"
+    return json.dumps(player_list)
 
 #GET player requests
 @app.route('/index/player=<player>/season=<season>', methods=['GET'])
@@ -25,10 +37,10 @@ def parsePlayerSeason(player,season):
     seasons = season.split()
 
     #pass in all months since there is no filter
-    months = ['01','02','03','04','05','06','07','08','09','10','11','12']
+    months = fullmonths
 
     #pass in all quartes since there is no filter
-    quarters = ['1','2','3','4']
+    quarters = fullquarters
 
     single_player_season = get_player_data(player, seasons, months, quarters)
 
@@ -43,13 +55,13 @@ def parsePlayerSeason(player,season):
 @app.route('/index/player=<player>/month=<month>', methods=['GET'])
 def parsePlayerMonth(player,month):
     #pass in all seasons since there is no filter
-    seasons = ['2014','2015','2016']
+    seasons = fullseasons
 
     #pass in all months since there is no filter
     months = month.split()
 
     #pass in all quartes since there is no filter
-    quarters = ['1','2','3','4']
+    quarters = fullquarters
 
     single_player_season = get_player_data(player, seasons, months, quarters)
 
@@ -63,13 +75,13 @@ def parsePlayerMonth(player,month):
 @app.route('/index/player=<player>/', methods=['GET'])
 def parsePlayer(player):
     #pass in all seasons since there is no filter
-    seasons = ['2014','2015','2016']
+    seasons = fullseasons
 
     #pass in all months since there is no filter
-    months = ['01','02','03','04','05','06','07','08','09','10','11','12']
+    months = fullmonths
 
     #pass in all quartes since there is no filter
-    quarters = ['1','2','3','4']
+    quarters = fullquarters
 
     single_player_season = get_player_data(player, seasons, months, quarters)
 
@@ -86,10 +98,10 @@ def parsePlayerQuarter(player,quarter):
     print("Season")
 	
     #produce a list from the strings passed in 
-    seasons = ['2014','2015','2016']
+    seasons = fullseasons
 
     #pass in all months since there is no filter
-    months = ['01','02','03','04','05','06','07','08','09','10','11','12']
+    months = fullmonths
 
     #pass in all quartes since there is no filter
     quarters = quarter.split()
@@ -114,7 +126,7 @@ def parsePlayerSeasonMonth(player,season,month):
     months = month.split()
 
     #pass in all quartes since there is no filter
-    quarters = ['1','2','3','4']
+    quarters = fullquarters
 
 
     single_player_season = get_player_data(player, seasons, months, quarters)
@@ -134,7 +146,7 @@ def parsePlayerSeasonQuarter(player,season,quarter):
     seasons = season.split()
 
     #assume all months are fair game since none have been selected 
-    months = ['01','02','03','04','05','06','07','08','09','10','11','12']
+    months = fullmonths
 
     #pass in all quartes since there is no filter
     quarters = quarter.split()
@@ -154,7 +166,7 @@ def parsePlayerMonthQuarter(player,month,quarter):
     print("SeasonQuarter")
     
     #produce a list from the strings passed in 
-    seasons = ['2014','2015','2016']
+    seasons = fullseasons
 
     #assume all months are fair game since none have been selected 
     months = month.split()

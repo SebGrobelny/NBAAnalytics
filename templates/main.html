@@ -7,12 +7,20 @@
   <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css">
 
+<body onload="generateSelect()">
+
   <h1> Welcome to the NBA Analytics Site </h1>
   <h3> Please Enter a Player's Full Name To View Their Shot Statistics </h3>
   <div id= "playerForm">
   	<form >
-  		<input type = "text"  name = "playerName" id="playerData" placeholder="Enter a Player Name" />
-<!--       <input type = "text"  name = "teamName" id="teamData" placeholder="Enter a Team Name" /> -->
+<!--   		<input type = "text"  name = "playerName" id="playerData" placeholder="Enter a Player Name" />
+     <input type = "text"  name = "teamName" id="teamData" placeholder="Enter a Team Name" /> --> 
+      <select id="dropdownPlayer" class="selectpicker">
+
+
+
+
+      </select>
 
       <select  id="dropdownSeason" class="selectpicker" >
 
@@ -75,7 +83,7 @@
 
   </div>
 
-
+</body>
 
 
   <script src="static/render.js"></script>

@@ -4,11 +4,35 @@ import csv
 from stat_calculation import check_shot_type
 from stat_calculation import calculatePercentages, identifyPlayer, incrementShotData, appendPlayer
 
+
+#database stuff
+import sqlite3
+
+
+
 # import matplotlib.pyplot as plt
 
 # import seaborn as sns
 #player
 #0-player_id 1-firstname 2-lastname 3-position 4-height 5-weight 6-byear 7-rookie
+
+def selectPlayersList():
+		filename = "players.csv"
+		conn = sqlite3.connect('player.db')
+		cur = conn.cursor() 
+		table_name = "player"
+		column_name = "playername"
+
+		cur.execute("SELECT DISTINCT %s FROM player" %(column_name))
+		all_rows = cur.fetchall()
+		
+		print "in list"
+		conn.commit()
+		conn.close()
+		print "after conn closed"
+
+		return all_rows
+
 
 
 #complete
@@ -145,9 +169,6 @@ def processPlayerDictionary(filePath, playerNameDict, completeDict, playerIdDict
 				count=count+1
 			#print playerDict
 			#return value_list
-# def generateTeamData(filePath, teamCompleteDict, teamNameDict, seasons, months, quarters ):
-
-# 	print "Team data"
 
 
 
