@@ -116,6 +116,12 @@ function createBaseShotPlayerAttr(playerData)
 
 	var playerData = JSON.parse(playerData);
 
+	if(document.getElementById("load"))
+	{
+		myNode = document.getElementById("load");
+		myNode.remove(myNode.firstChild);
+	}
+
 	//primary container everything gets appended to the point is to dispose of this easily 
 	var temp = document.createElement('div');
 	temp.setAttribute("id","temp");
@@ -285,10 +291,17 @@ function processPlayer()
 	//if our temp is still there from the last request
 	if(document.getElementById("temp"))
 		{
-			myNode = document.getElementById("temp")
-			myNode.remove(myNode.firstChild)
+			myNode = document.getElementById("temp");
+			myNode.remove(myNode.firstChild);
 		}
+	var parent = document.getElementById('player');
 
+	var loader = document.createElement("div");
+	loader.id = "load";
+
+	parent.appendChild(loader);
+
+	parent.appendChild
 
 	var season = document.getElementById('dropdownSeason');
 
