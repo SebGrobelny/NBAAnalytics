@@ -101,6 +101,9 @@ def identifyPlayerDB(playerNameDict,name):
 
 
 		cur.execute("SELECT playername FROM player WHERE player_id = ?;", (player_id,))
+		playername = cur.fetchall()
+
+		playerNameDict[player_id][name] = playername[0]
 
 
 

@@ -5,7 +5,7 @@ from flask_cors import CORS, cross_origin
 import json
 
 #module that contains queries to databases
-from player_proccessor import generatePlayerShots, get_player_data, get_player_DB, processPlayerDictionary, selectPlayersList
+from player_proccessor import get_player_DB, selectPlayersList
 
 
 
