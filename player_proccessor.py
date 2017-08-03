@@ -324,7 +324,7 @@ def get_player_data( playerName, seasons, months, quarters):
 
 
 
-		queryPlayerDB()
+		#queryPlayerDB()
 
 		#want all the players to be in our Name Dictionary
 		processPlayerDictionary('players.csv',playerNameDict, playerCompDict, playerIdDict)
