@@ -5,7 +5,7 @@ from flask_cors import CORS, cross_origin
 import json
 
 #module that contains queries to databases
-from player_proccessor import generatePlayerShots, get_player_data, processPlayerDictionary, selectPlayersList
+from player_proccessor import generatePlayerShots, get_player_data, get_player_DB, processPlayerDictionary, selectPlayersList
 
 
 
@@ -25,16 +25,14 @@ def main():
 
 @app.route('/index')
 def playerList():
-    print "in here"
+
     player_list = selectPlayersList()
-    print "made it out"
+
     return json.dumps(player_list)
 
 #GET player requests
 @app.route('/index/player=<player>/season=<season>/month=<month>/quarter=<quarter>', methods=['GET'])
 def parsePlayerFull(player,season,month,quarter):
-    print("Full")
-    print(season)
     #produce a list from the strings passed in 
     if season == "NA":
         seasons = fullseasons
@@ -56,11 +54,12 @@ def parsePlayerFull(player,season,month,quarter):
 
 
 
-    single_player_season = get_player_data(player, seasons, months, quarters)
+    #single_player_season = get_player_data(player, seasons, months, quarters)
+    single_player_season = get_player_DB(player, seasons, months, quarters)
 
     if single_player_season == 404:
         return jsonify({'':"Error Try a Different Player Name"}),404
-    single_player_season["Player Name"] = player
+
 
 
     return jsonify(single_player_season)

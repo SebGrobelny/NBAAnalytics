@@ -1,4 +1,5 @@
 import math 
+import sqlite3
 
 
 
@@ -89,6 +90,24 @@ def identifyPlayer(playerBaseDict, playerIdDict, name):
 
 			#store the player name in with the id 
 			playerBaseDict[player_id][name] = playerIdDict[player_id]['firstname']+" "+playerIdDict[player_id]['lastname']
+
+
+def identifyPlayerDB(playerNameDict,name):
+	#open player database
+	conn = sqlite3.connect('player.db')
+	cur = conn.cursor() 
+
+	for player_id in playerNameDict:
+
+
+		cur.execute("SELECT playername FROM player WHERE player_id = ?;", (player_id,))
+
+
+
+	conn.commit()
+	conn.close()
+
+
 
 #used to append either a defender or passer associated with a shot
 def appendPlayer(player, made, successKey, failKey):

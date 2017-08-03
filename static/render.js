@@ -5,7 +5,7 @@ function renderPlayerList(players)
 {
 	var select = document.getElementById("dropdownPlayer");
 	console.log("in render");
-	console.log(players);
+
 	players = JSON.parse(players);
 
 	arrayLength = players.length;
@@ -251,7 +251,8 @@ function createBaseShotPlayerAttr(playerData)
 //method for populating the players tab 
 function generateSelect()
 {
-	var url = 'https://sebnba-pro.herokuapp.com/index';
+	//obtain the url the site is hosted on 
+	var url = window.location.origin+'/index';
 
 	console.log(url);
 
@@ -276,7 +277,8 @@ function processPlayer()
 {
 	//primary url for deploying requests for apps.py 
 	//url will include an appended request type at the end i.e. base stats 
-	var url = 'https://sebnba-pro.herokuapp.com/';
+	// var url = 'https://sebnba-pro.herokuapp.com/';
+	var url = window.location.origin;
 
 
 	//clear method for previously displayed player
@@ -329,7 +331,7 @@ function processPlayer()
 	if(playerName != "")
 	{
 		//set the base player url
-		url = url+'index/player='+playerName;
+		url = url+'/index/player='+playerName;
 	}
 
 
