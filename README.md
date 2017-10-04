@@ -1,5 +1,5 @@
 # Link to Project:
-######	The Kings Interview Project is available for view at https://sebnba-pro.herokuapp.com/homepage.
+######	The NBA Shot Analysis Project is available for view at https://sebnba-pro.herokuapp.com/homepage.
 
 ## How to Work the Site:
 ######	Simply type a player's name and select however many filters you would like to take into consideration before hitting the generate stats. Requests on average take 20 seconds so please be patient and preferably run the site on chrome as safari seems to take longer! :)
